@@ -52,26 +52,7 @@ csv_writer.writerow(["count","title","authors", "abstract"])
 
 result = None 
 
-next_page = 10
-
 while count < papers_need:
-
-    while True:
-        try:
-            print("Try get cur_page")
-            cur_page = WebDriverWait(browser, timeout).until(EC.presence_of_element_located((By.XPATH, '//*[@id="gridTable"]/div[2]/span[2]'))).text
-            cur_page = int(cur_page)
-            print(cur_page)
-            if cur_page == next_page:
-                break
-            elif cur_page < next_page:
-                WebDriverWait(browser, timeout).until(EC.presence_of_element_located((By.XPATH ,'//*[@id="PageNext"]'))).click()
-                time.sleep(timeout)
-            else:
-                WebDriverWait(browser, timeout).until(EC.presence_of_element_located((By.XPATH ,'//*[@id="PagePrev"]'))).click()
-                time.sleep(timeout)
-        except Exception as e:
-            print("[Fail] cannot switch to the next page : {}".format(e))
 
     papers_list = WebDriverWait(browser, timeout).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'fz14')))
     print(len(papers_list))
